@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import logo from "./logo.svg";
+import Login from "./Login";
+import CallCard from "./Call/CallCard";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [acsUser, setAcsUser] = useState({});
+
+  const setUserInfo = (loggedIn, userInfo) => {
+    if (loggedIn) {
+      setAcsUser({
+        communicationUserId: userInfo.communicationUserId,
+        token: userInfo.token,
+        displayName: userInfo.displayName,
+      });
+      setLoggedIn(loggedIn);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+          <img src={logo} width="30" height="30" alt="" className="mr-2" />
+          Azure Communication Services
         </a>
-      </header>
+      </nav>
+      {!loggedIn ? (
+        <Login setUserInfo={setUserInfo} />
+      ) : (
+        <CallCard acsUser={acsUser} />
+      )}
     </div>
   );
 }

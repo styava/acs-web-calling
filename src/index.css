@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.incoming-call-card{
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  border-radius: 4px;
+}
